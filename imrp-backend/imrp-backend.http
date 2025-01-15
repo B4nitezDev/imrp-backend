@@ -1,0 +1,6 @@
+@imrp_backend_HostAddress = http://localhost:5177
+
+GET {{imrp_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
