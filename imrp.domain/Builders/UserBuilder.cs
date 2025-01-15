@@ -4,29 +4,37 @@ namespace imrp.domain.Builders
 {
     public class UserBuilder
     {
-        private User _user = new User();
+        private int _id;
+        private string _name;
+        private string _email;
+        private string _password;
+        private string _passwordAfter;
+        private string _passwordSalt;
+        private List<Role> _roles = [];
+        private List<Report> _reports = [];
+        private List<InventoryMovement> _inventoryMovement = [];    
 
         public UserBuilder WithId(int id)
         {
-            _user.Id = id;
+            _id = id;
             return this;
         }
 
         public UserBuilder WithName(string name)
         {
-            _user.Name = name;
+            _name = name;
             return this;
         }
 
         public UserBuilder WithEmail(string email)
         {
-            _user.Email = email;
+            _email = email;
             return this;
         }
 
         public UserBuilder WithPassword(string password)
         {
-            _user.Password = password;
+            _password = password;
             return this;
         }
 
@@ -38,31 +46,42 @@ namespace imrp.domain.Builders
 
         public UserBuilder WithPasswordSalt(string passwordSalt)
         {
-            _user.Password_salt = passwordSalt;
+            _passwordSalt = passwordSalt;
             return this;
         }
 
         public UserBuilder AddRole(Role role)
         {
-            _user.Roles.Add(role);
+            _roles.Add(role);
             return this;
         }
 
         public UserBuilder AddReport(Report report)
         {
-            _user.Reports.Add(report);
+            _reports.Add(report);
             return this;
         }
 
         public UserBuilder AddInventoryMovement(InventoryMovement inventoryMovement)
         {
-            _user.InventoryMovement.Add(inventoryMovement);
+            _inventoryMovement.Add(inventoryMovement);
             return this;
         }
 
         public User Build()
         {
-            return _user;
+            return new User()
+            {
+                Id = _id,
+                Name = _name,
+                Email = _email,
+                Password = _password,
+                Password_after = _passwordAfter,
+                Password_salt = _passwordSalt,
+                Roles = _roles,
+                Reports = _reports,
+                InventoryMovement = _inventoryMovement
+            };
         }
     }
 }
