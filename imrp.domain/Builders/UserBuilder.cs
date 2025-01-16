@@ -10,7 +10,7 @@ namespace imrp.domain.Builders
         private string _password;
         private string _passwordAfter;
         private string _passwordSalt;
-        private List<Role> _roles = [];
+        private List<UserRole> _roles = [];
         private List<Report> _reports = [];
         private List<InventoryMovement> _inventoryMovement = [];    
 
@@ -40,7 +40,7 @@ namespace imrp.domain.Builders
 
         public UserBuilder WithPasswordAfter(string passwordAfter)
         {
-            _user.Password_after = passwordAfter;
+            _passwordAfter = passwordAfter;
             return this;
         }
 
@@ -50,7 +50,7 @@ namespace imrp.domain.Builders
             return this;
         }
 
-        public UserBuilder AddRole(Role role)
+        public UserBuilder AddRole(UserRole role)
         {
             _roles.Add(role);
             return this;
@@ -78,7 +78,7 @@ namespace imrp.domain.Builders
                 Password = _password,
                 Password_after = _passwordAfter,
                 Password_salt = _passwordSalt,
-                Roles = _roles,
+                UserRoles = _roles,
                 Reports = _reports,
                 InventoryMovement = _inventoryMovement
             };
