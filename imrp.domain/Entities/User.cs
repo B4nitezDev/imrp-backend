@@ -8,7 +8,7 @@
         public string Password { get; set; }
         public string Password_after { get; set; }
         public string Password_salt { get; set; }
-        public List<Role> Roles { get; set; } = [];
+        public List<UserRole> UserRoles { get; set; } = [];
         public List<Report> Reports { get; set; } = [];
         public List<InventoryMovement> InventoryMovement { get; set; } = [];
 
