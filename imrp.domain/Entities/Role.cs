@@ -6,8 +6,8 @@ namespace imrp.domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<RoleClaim> RoleClaims { get; set; } = [];
-        public List<UserRole> UserRoles { get; set; } = [];
+        public virtual List<RoleClaim> RoleClaims { get; set; } = [];
+        public virtual List<UserRole> UserRoles { get; set; } = [];
 
         public Role(int id, string name, string description)
         {
@@ -16,24 +16,24 @@ namespace imrp.domain.Entities
             Description = description;
         }
 
-        public void AddClaim(Claim claim)
+        public void AddClaim(RoleClaim claim)
         {
-            Claims.Add(claim);
+            RoleClaims.Add(claim);
         }
 
-        public void RemoveClaim(Claim claim)
+        public void RemoveClaim(RoleClaim claim)
         {
-            Claims.Remove(claim);
+            RoleClaims.Remove(claim);
         }
 
-        public void AddUser(User user)
+        public void AddUser(UserRole user)
         {
-            Users.Add(user);
+            UserRoles.Add(user);
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(UserRole user)
         {
-            Users.Remove(user);
+            UserRoles.Remove(user);
         }
     }
 }
