@@ -1,7 +1,7 @@
 ﻿
 namespace imrp.domain.Entities
 {
-    public class RoleClaim
+    public class RoleClaim: BaseEntity
     {
         public int RoleId { get; set; }
         public Role Role { get; set; }

@@ -1,9 +1,8 @@
 ﻿
 namespace imrp.domain.Entities
 {
-    public class InventoryMovement
+    public class InventoryMovement: BaseEntity
     {
-        public int Id { get; set; }
         public string Sku { get; set; }
         public string ProductName { get; set; }
         public int ProductQuantity { get; set; }
