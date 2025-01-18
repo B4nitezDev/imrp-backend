@@ -1,6 +1,8 @@
+using imrp.application.Interfaces;
 using imrp.application.Services;
 using imrp.domain.Interfaces;
 using imrp.persistence.Database;
+using imrp.persistence.Mappers;
 using imrp.persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -9,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<IrmpDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ImrpDbContext")));
 
-// LOgs
+// Logs
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/logs.txt", rollingInterval: RollingInterval.Day)
@@ -18,6 +20,10 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+
+// Mappers
+builder.Services.AddAutoMapper(typeof(UserProfile));
+builder.Services.AddScoped(typeof(IMapperService<,>), typeof(MapperService<,>));
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
