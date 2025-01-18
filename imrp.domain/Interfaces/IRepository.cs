@@ -11,5 +11,6 @@ namespace imrp.domain.Interfaces
         List<T> GetAll();
         IQueryable<T> IQueryable();
         void SaveChanges();
+        
     }
 }
