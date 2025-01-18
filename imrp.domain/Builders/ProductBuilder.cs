@@ -1,4 +1,6 @@
 ﻿
+using imrp.domain.Enums;
+
 namespace imrp.domain.Builders
 {
     public class ProductBuilder
@@ -7,14 +9,14 @@ namespace imrp.domain.Builders
         private string _sku;
         private string _name;
         private string _description;
-        private string _category;
+        private ProductCategory _category;
         private int _current_amount;
         private int _minimum_amount;
         private int _averageDailyConsumption;
         private DateTime _daysLeft;
         private DateTime _createdAt;
         private DateTime _updatedAt;
-        private string _status;
+        private ProductStatus _status;
         private List<Entities.InventoryMovement> _inventoryMovement = [];
 
         public ProductBuilder WithId(int id)
@@ -39,7 +41,7 @@ namespace imrp.domain.Builders
             return this;
         }
 
-        public ProductBuilder WithCategory(string category) {
+        public ProductBuilder WithCategory(ProductCategory category) {
             _category = category;
             return this;
         }
@@ -80,7 +82,7 @@ namespace imrp.domain.Builders
             return this;
         }
 
-        public ProductBuilder WithStatus(string status)
+        public ProductBuilder WithStatus(ProductStatus status)
         {
             _status = status;
             return this;
