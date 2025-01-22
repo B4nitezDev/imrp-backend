@@ -1,3 +1,4 @@
+using imrp_backend.Middlewares;
 using imrp.application.Interfaces;
 using imrp.application.Interfaces.UseCases.User;
 using imrp.application.Services;
@@ -5,6 +6,7 @@ using imrp.application.Use_cases.User;
 using imrp.domain.Interfaces;
 using imrp.persistence.Database;
 using imrp.persistence.DependencyInjection;
+using imrp.persistence.Jwt;
 using imrp.persistence.Mappers;
 using imrp.persistence.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +37,9 @@ builder.Services.AddPersistenceServices();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddTransient<JwtTokenService>();
+
 
 var app = builder.Build();
 
@@ -47,6 +52,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<AuthMiddleware>();
 
 app.MapControllers();
 

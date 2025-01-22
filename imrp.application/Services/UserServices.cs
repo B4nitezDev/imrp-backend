@@ -28,6 +28,27 @@ namespace imrp.application.Services
             
             return Result.Result<UserDto>.Success(_userMapper.Map(user));
         }
+        
+        public Result.Result<User> Login(string username, string password)
+        {
+            var query = _userRepository.IQueryable();
+            
+            query = query.Where(x => x.Email == username);
+
+            User? user = query.FirstOrDefault();
+            
+            if(user == null)
+            {
+                return Result.Result<User>.Failure("Usuario no encontrado");
+            }
+
+            if(user.Password_after != password)
+            {
+                return Result.Result<User>.Failure("Contraseña incorrecta");
+            }
+
+            return Result.Result<User>.Success(user);
+        }
 
         private bool ValidateUser(UserDto dto, out Result<UserDto> result)
         {
