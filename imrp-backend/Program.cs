@@ -4,6 +4,7 @@ using imrp.application.Services;
 using imrp.application.Use_cases.User;
 using imrp.domain.Interfaces;
 using imrp.persistence.Database;
+using imrp.persistence.DependencyInjection;
 using imrp.persistence.Mappers;
 using imrp.persistence.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -25,16 +26,11 @@ builder.Host.UseSerilog();
 
 // Mappers
 builder.Services.AddAutoMapper(typeof(UserProfile));
-builder.Services.AddScoped(typeof(IMapperService<,>), typeof(MapperService<,>));
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddSingleton<ILoggerService, LoggerService>();
-builder.Services.AddScoped(typeof(IMapperService<,>), typeof(MapperService<,>));
-builder.Services.AddScoped<UserServices>();
-
-// Add UseCases
-builder.Services.AddScoped<IAddUserUseCase, AddUserUseCase>();
+builder.Services.AddApplicationServices();
+builder.Services.AddPersistenceServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
