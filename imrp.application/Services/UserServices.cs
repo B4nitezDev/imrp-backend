@@ -20,6 +20,9 @@ namespace imrp.application.Services
 
             var newUser = _userMapper.MapBack(dto);
 
+            newUser.Password_after = dto.Password;
+            newUser.Password_salt = "salt";
+            
             var user = _userRepository.Add(newUser);
             _userRepository.SaveChanges();
             
