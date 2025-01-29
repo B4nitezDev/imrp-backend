@@ -1,4 +1,5 @@
-﻿using imrp.application.Interfaces.UseCases.Auth;
+﻿using imrp.application.Dto;
+using imrp.application.Interfaces.UseCases.Auth;
 using imrp.application.Result;
 using imrp.application.Services;
 
@@ -8,8 +9,8 @@ public class LoginUseCase(UserServices userServices): ILoginUseCase
 {
     private readonly UserServices _userServices = userServices;
     
-    public Result.Result<domain.Entities.User> Execute(string username, string password)
+    public Result.Result<domain.Entities.User> Execute(LoginUserDto userDto)
     {
-        return _userServices.Login(username, password);
+        return _userServices.Login(userDto);
     }
 }

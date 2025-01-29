@@ -1,6 +1,7 @@
 ﻿using imrp.application.Dto;
 using imrp.application.Interfaces.UseCases.User;
 using imrp.application.Result;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imrp_backend.Controllers;
@@ -12,6 +13,7 @@ public class UserController(IAddUserUseCase addUserUseCase) : ControllerBase
     private IAddUserUseCase _addUserUseCase = addUserUseCase;
 
     [HttpPost]
+    [Authorize]
     public IActionResult AddUser(UserDto userDto)
     {
         var result = _addUserUseCase.Execute(userDto);

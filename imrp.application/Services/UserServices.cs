@@ -29,11 +29,11 @@ namespace imrp.application.Services
             return Result.Result<UserDto>.Success(_userMapper.Map(user));
         }
         
-        public Result.Result<User> Login(string username, string password)
+        public Result.Result<User> Login(LoginUserDto userDto)
         {
             var query = _userRepository.IQueryable();
             
-            query = query.Where(x => x.Email == username);
+            query = query.Where(x => x.Email == userDto.Email);
 
             User? user = query.FirstOrDefault();
             
@@ -41,8 +41,10 @@ namespace imrp.application.Services
             {
                 return Result.Result<User>.Failure("Usuario no encontrado");
             }
+            
+            // TODO: Validar si es un password hash
 
-            if(user.Password_after != password)
+            if(user.Password_after != userDto.Password)
             {
                 return Result.Result<User>.Failure("Contraseña incorrecta");
             }

@@ -1,4 +1,5 @@
-﻿using imrp.application.Interfaces.UseCases.Auth;
+﻿using imrp.application.Dto;
+using imrp.application.Interfaces.UseCases.Auth;
 using imrp.persistence.Jwt;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,14 +21,14 @@ public class AuthController: ControllerBase
         }
 
         [HttpPost("login")]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login(LoginUserDto userDto)
         {
-            _logger.LogInformation($"Intento de login de {username}");
+            _logger.LogInformation($"Intento de login de {userDto.Email}");
             
-            if(username == null || password == null)
+            if(userDto.Email == null || userDto.Password == null)
                 return BadRequest("Faltan datos");
             
-            var result = _loginUseCase.Execute(username, password);
+            var result = _loginUseCase.Execute(userDto);
             
             if(!result.IsSuccess)
                 return Unauthorized(result.Message);
