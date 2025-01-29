@@ -31,7 +31,7 @@ public class AuthController: ControllerBase
             var result = _loginUseCase.Execute(userDto);
             
             if(!result.IsSuccess)
-                return Unauthorized(result.Message);
+                return BadRequest(result.Message);
             
             // TODO: Sacar role de la base de datos
             var token = _tokenService.GenerateToken(result.Value.Id.ToString(), "Admin");

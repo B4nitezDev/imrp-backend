@@ -11,7 +11,7 @@ public static class JwtServiceExtensions
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = new JwtSettings();
-            configuration.GetSection("Jwt").Bind(jwtSettings);
+            configuration.GetSection("JwtSettings").Bind(jwtSettings);
 
             services.AddSingleton(jwtSettings);
 
