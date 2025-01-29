@@ -20,10 +20,36 @@ namespace imrp.application.Services
 
             var newUser = _userMapper.MapBack(dto);
 
+            newUser.Password_after = dto.Password;
+            newUser.Password_salt = "salt";
+            
             var user = _userRepository.Add(newUser);
             _userRepository.SaveChanges();
             
             return Result.Result<UserDto>.Success(_userMapper.Map(user));
+        }
+        
+        public Result.Result<User> Login(LoginUserDto userDto)
+        {
+            var query = _userRepository.IQueryable();
+            
+            query = query.Where(x => x.Email == userDto.Email);
+
+            User? user = query.FirstOrDefault();
+            
+            if(user == null)
+            {
+                return Result.Result<User>.Failure("Usuario no encontrado");
+            }
+            
+            // TODO: Validar si es un password hash
+
+            if(user.Password_after != userDto.Password)
+            {
+                return Result.Result<User>.Failure("Contraseña incorrecta");
+            }
+
+            return Result.Result<User>.Success(user);
         }
 
         private bool ValidateUser(UserDto dto, out Result<UserDto> result)
