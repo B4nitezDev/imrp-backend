@@ -40,6 +40,16 @@ builder.Services.AddOpenApi();
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddTransient<JwtTokenService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -48,6 +58,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 
