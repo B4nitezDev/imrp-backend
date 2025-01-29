@@ -1,8 +1,4 @@
 using imrp_backend.Middlewares;
-using imrp.application.Interfaces;
-using imrp.application.Interfaces.UseCases.User;
-using imrp.application.Services;
-using imrp.application.Use_cases.User;
 using imrp.domain.Interfaces;
 using imrp.persistence.Database;
 using imrp.persistence.DependencyInjection;
@@ -42,13 +38,10 @@ builder.Services.AddTransient<JwtTokenService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins",
-    policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-    });
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
 });
 
 var app = builder.Build();
@@ -58,7 +51,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-app.UseCors("AllowSpecificOrigins");
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
